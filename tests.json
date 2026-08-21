@@ -1,0 +1,1293 @@
+{
+  "general": {
+    "name": "General EP Fit Assessment",
+    "description": "Critical thinking and emotional intelligence \u2014 measured two ways (forced-choice trait comparison and situational judgment) \u2014 the baseline test for every applicant.",
+    "items": [
+      {
+        "id": "FC1",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I like having a backup plan ready before I need it.",
+            "facet": "PLAN"
+          },
+          {
+            "id": "b",
+            "text": "When something goes wrong, I want to understand why before I fix it.",
+            "facet": "ROOTCAUSE"
+          },
+          {
+            "id": "c",
+            "text": "I usually notice when someone around me is upset, even if they don't say so.",
+            "facet": "EMPATHY"
+          },
+          {
+            "id": "d",
+            "text": "I can hear criticism without feeling like I need to defend myself right away.",
+            "facet": "NONDEFENSIVE"
+          }
+        ]
+      },
+      {
+        "id": "FC2",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I can stay level-headed even when someone is being difficult with me.",
+            "facet": "REGULATE"
+          },
+          {
+            "id": "b",
+            "text": "Before I act on a report from someone else, I like to confirm it myself if I can.",
+            "facet": "VERIFY"
+          },
+          {
+            "id": "c",
+            "text": "When several things need attention at once, I deal with the most urgent one first.",
+            "facet": "PRIORITIZE"
+          },
+          {
+            "id": "d",
+            "text": "I choose my words carefully when a conversation feels sensitive.",
+            "facet": "TACT"
+          }
+        ]
+      },
+      {
+        "id": "FC3",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I'd rather find the real cause of a problem than just patch the symptom.",
+            "facet": "ROOTCAUSE"
+          },
+          {
+            "id": "b",
+            "text": "I take correction well, even when I don't love hearing it.",
+            "facet": "NONDEFENSIVE"
+          },
+          {
+            "id": "c",
+            "text": "I can tell the difference between what's urgent and what just feels urgent.",
+            "facet": "PRIORITIZE"
+          },
+          {
+            "id": "d",
+            "text": "I'd rather double-check something than assume it's accurate.",
+            "facet": "VERIFY"
+          }
+        ]
+      },
+      {
+        "id": "FC4",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I can tell when someone's mood has changed before they mention it.",
+            "facet": "EMPATHY"
+          },
+          {
+            "id": "b",
+            "text": "I know how to raise a difficult topic without making it worse.",
+            "facet": "TACT"
+          },
+          {
+            "id": "c",
+            "text": "My mood doesn't shift much even when I'm provoked.",
+            "facet": "REGULATE"
+          },
+          {
+            "id": "d",
+            "text": "I think through what could go wrong before I commit to a plan.",
+            "facet": "PLAN"
+          }
+        ]
+      },
+      {
+        "id": "FC5",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I can deliver an uncomfortable message without being harsh about it.",
+            "facet": "TACT"
+          },
+          {
+            "id": "b",
+            "text": "I keep my composure even when a situation gets tense.",
+            "facet": "REGULATE"
+          },
+          {
+            "id": "c",
+            "text": "I pick up on how people are feeling, even when it's subtle.",
+            "facet": "EMPATHY"
+          },
+          {
+            "id": "d",
+            "text": "I focus on what matters most, even if something else feels more pressing.",
+            "facet": "PRIORITIZE"
+          }
+        ]
+      },
+      {
+        "id": "FC6",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I ask why something happened before I decide what to do about it.",
+            "facet": "ROOTCAUSE"
+          },
+          {
+            "id": "b",
+            "text": "I prepare an alternate option even when the main plan looks solid.",
+            "facet": "PLAN"
+          },
+          {
+            "id": "c",
+            "text": "When something looks slightly off, I check it before moving forward.",
+            "facet": "VERIFY"
+          },
+          {
+            "id": "d",
+            "text": "Feedback doesn't put me on the defensive, even when it stings a little.",
+            "facet": "NONDEFENSIVE"
+          }
+        ]
+      },
+      {
+        "id": "FC7",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "When several things need attention at once, I deal with the most urgent one first.",
+            "facet": "PRIORITIZE"
+          },
+          {
+            "id": "b",
+            "text": "I like having a backup plan ready before I need it.",
+            "facet": "PLAN"
+          },
+          {
+            "id": "c",
+            "text": "I can stay level-headed even when someone is being difficult with me.",
+            "facet": "REGULATE"
+          },
+          {
+            "id": "d",
+            "text": "I can hear criticism without feeling like I need to defend myself right away.",
+            "facet": "NONDEFENSIVE"
+          }
+        ]
+      },
+      {
+        "id": "FC8",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "When something goes wrong, I want to understand why before I fix it.",
+            "facet": "ROOTCAUSE"
+          },
+          {
+            "id": "b",
+            "text": "I usually notice when someone around me is upset, even if they don't say so.",
+            "facet": "EMPATHY"
+          },
+          {
+            "id": "c",
+            "text": "I choose my words carefully when a conversation feels sensitive.",
+            "facet": "TACT"
+          },
+          {
+            "id": "d",
+            "text": "Before I act on a report from someone else, I like to confirm it myself if I can.",
+            "facet": "VERIFY"
+          }
+        ]
+      },
+      {
+        "id": "FC9",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I'd rather find the real cause of a problem than just patch the symptom.",
+            "facet": "ROOTCAUSE"
+          },
+          {
+            "id": "b",
+            "text": "I take correction well, even when I don't love hearing it.",
+            "facet": "NONDEFENSIVE"
+          },
+          {
+            "id": "c",
+            "text": "I can tell the difference between what's urgent and what just feels urgent.",
+            "facet": "PRIORITIZE"
+          },
+          {
+            "id": "d",
+            "text": "I think through what could go wrong before I commit to a plan.",
+            "facet": "PLAN"
+          }
+        ]
+      },
+      {
+        "id": "FC10",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I'd rather double-check something than assume it's accurate.",
+            "facet": "VERIFY"
+          },
+          {
+            "id": "b",
+            "text": "I can tell when someone's mood has changed before they mention it.",
+            "facet": "EMPATHY"
+          },
+          {
+            "id": "c",
+            "text": "I know how to raise a difficult topic without making it worse.",
+            "facet": "TACT"
+          },
+          {
+            "id": "d",
+            "text": "My mood doesn't shift much even when I'm provoked.",
+            "facet": "REGULATE"
+          }
+        ]
+      },
+      {
+        "id": "FC11",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I ask why something happened before I decide what to do about it.",
+            "facet": "ROOTCAUSE"
+          },
+          {
+            "id": "b",
+            "text": "I pick up on how people are feeling, even when it's subtle.",
+            "facet": "EMPATHY"
+          },
+          {
+            "id": "c",
+            "text": "I can deliver an uncomfortable message without being harsh about it.",
+            "facet": "TACT"
+          },
+          {
+            "id": "d",
+            "text": "I keep my composure even when a situation gets tense.",
+            "facet": "REGULATE"
+          }
+        ]
+      },
+      {
+        "id": "FC12",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Feedback doesn't put me on the defensive, even when it stings a little.",
+            "facet": "NONDEFENSIVE"
+          },
+          {
+            "id": "b",
+            "text": "When something looks slightly off, I check it before moving forward.",
+            "facet": "VERIFY"
+          },
+          {
+            "id": "c",
+            "text": "I focus on what matters most, even if something else feels more pressing.",
+            "facet": "PRIORITIZE"
+          },
+          {
+            "id": "d",
+            "text": "I prepare an alternate option even when the main plan looks solid.",
+            "facet": "PLAN"
+          }
+        ]
+      },
+      {
+        "id": "FC13",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I can hear criticism without feeling like I need to defend myself right away.",
+            "facet": "NONDEFENSIVE"
+          },
+          {
+            "id": "b",
+            "text": "I like having a backup plan ready before I need it.",
+            "facet": "PLAN"
+          },
+          {
+            "id": "c",
+            "text": "Before I act on a report from someone else, I like to confirm it myself if I can.",
+            "facet": "VERIFY"
+          },
+          {
+            "id": "d",
+            "text": "I choose my words carefully when a conversation feels sensitive.",
+            "facet": "TACT"
+          }
+        ]
+      },
+      {
+        "id": "FC14",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I can stay level-headed even when someone is being difficult with me.",
+            "facet": "REGULATE"
+          },
+          {
+            "id": "b",
+            "text": "I usually notice when someone around me is upset, even if they don't say so.",
+            "facet": "EMPATHY"
+          },
+          {
+            "id": "c",
+            "text": "When several things need attention at once, I deal with the most urgent one first.",
+            "facet": "PRIORITIZE"
+          },
+          {
+            "id": "d",
+            "text": "When something goes wrong, I want to understand why before I fix it.",
+            "facet": "ROOTCAUSE"
+          }
+        ]
+      },
+      {
+        "id": "FC15",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I think through what could go wrong before I commit to a plan.",
+            "facet": "PLAN"
+          },
+          {
+            "id": "b",
+            "text": "I can tell when someone's mood has changed before they mention it.",
+            "facet": "EMPATHY"
+          },
+          {
+            "id": "c",
+            "text": "I'd rather find the real cause of a problem than just patch the symptom.",
+            "facet": "ROOTCAUSE"
+          },
+          {
+            "id": "d",
+            "text": "I know how to raise a difficult topic without making it worse.",
+            "facet": "TACT"
+          }
+        ]
+      },
+      {
+        "id": "FC16",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I'd rather double-check something than assume it's accurate.",
+            "facet": "VERIFY"
+          },
+          {
+            "id": "b",
+            "text": "I take correction well, even when I don't love hearing it.",
+            "facet": "NONDEFENSIVE"
+          },
+          {
+            "id": "c",
+            "text": "I can tell the difference between what's urgent and what just feels urgent.",
+            "facet": "PRIORITIZE"
+          },
+          {
+            "id": "d",
+            "text": "My mood doesn't shift much even when I'm provoked.",
+            "facet": "REGULATE"
+          }
+        ]
+      },
+      {
+        "id": "FC17",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I ask why something happened before I decide what to do about it.",
+            "facet": "ROOTCAUSE"
+          },
+          {
+            "id": "b",
+            "text": "Feedback doesn't put me on the defensive, even when it stings a little.",
+            "facet": "NONDEFENSIVE"
+          },
+          {
+            "id": "c",
+            "text": "I keep my composure even when a situation gets tense.",
+            "facet": "REGULATE"
+          },
+          {
+            "id": "d",
+            "text": "I prepare an alternate option even when the main plan looks solid.",
+            "facet": "PLAN"
+          }
+        ]
+      },
+      {
+        "id": "FC18",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "When something looks slightly off, I check it before moving forward.",
+            "facet": "VERIFY"
+          },
+          {
+            "id": "b",
+            "text": "I can deliver an uncomfortable message without being harsh about it.",
+            "facet": "TACT"
+          },
+          {
+            "id": "c",
+            "text": "I pick up on how people are feeling, even when it's subtle.",
+            "facet": "EMPATHY"
+          },
+          {
+            "id": "d",
+            "text": "I focus on what matters most, even if something else feels more pressing.",
+            "facet": "PRIORITIZE"
+          }
+        ]
+      },
+      {
+        "id": "FC19",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I usually notice when someone around me is upset, even if they don't say so.",
+            "facet": "EMPATHY"
+          },
+          {
+            "id": "b",
+            "text": "Before I act on a report from someone else, I like to confirm it myself if I can.",
+            "facet": "VERIFY"
+          },
+          {
+            "id": "c",
+            "text": "I like having a backup plan ready before I need it.",
+            "facet": "PLAN"
+          },
+          {
+            "id": "d",
+            "text": "I choose my words carefully when a conversation feels sensitive.",
+            "facet": "TACT"
+          }
+        ]
+      },
+      {
+        "id": "FC20",
+        "category": "FORCED_CHOICE",
+        "type": "forced_choice",
+        "text": "Of these four, which is MOST like you, and which is LEAST like you?",
+        "options": [
+          {
+            "id": "a",
+            "text": "I can stay level-headed even when someone is being difficult with me.",
+            "facet": "REGULATE"
+          },
+          {
+            "id": "b",
+            "text": "When something goes wrong, I want to understand why before I fix it.",
+            "facet": "ROOTCAUSE"
+          },
+          {
+            "id": "c",
+            "text": "I can hear criticism without feeling like I need to defend myself right away.",
+            "facet": "NONDEFENSIVE"
+          },
+          {
+            "id": "d",
+            "text": "When several things need attention at once, I deal with the most urgent one first.",
+            "facet": "PRIORITIZE"
+          }
+        ]
+      },
+      {
+        "id": "ATT",
+        "category": "ATT",
+        "type": "likert",
+        "dir": "P",
+        "text": "Attention check \u2014 please select \"Agree\" for this statement to show you're reading each item."
+      },
+      {
+        "id": "CT1",
+        "category": "CT_SCEN",
+        "type": "mc",
+        "text": "You're clearing a hotel room before your principal arrives. You find the door already unlocked, though housekeeping isn't scheduled. What's your best first move?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Treat it as a possible compromise: pause, notify your team lead, and re-clear the room with heightened caution before principal arrival.",
+            "points": 3
+          },
+          {
+            "id": "b",
+            "text": "Call the principal and delay their arrival until you're sure.",
+            "points": 2
+          },
+          {
+            "id": "c",
+            "text": "Lock the door yourself and continue as planned without telling anyone.",
+            "points": 1
+          },
+          {
+            "id": "d",
+            "text": "Assume housekeeping forgot to lock it and proceed with the sweep.",
+            "points": 0
+          }
+        ]
+      },
+      {
+        "id": "CT2",
+        "category": "CT_SCEN",
+        "type": "mc",
+        "text": "During a foot escort through a crowded venue, you notice the same person appears in your peripheral vision three times in different locations, each time looking away when you glance over. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Make a mental note and continue as normal.",
+            "points": 1
+          },
+          {
+            "id": "b",
+            "text": "Quietly flag the pattern to your team via radio, adjust your position to put a barrier between the individual and principal, and keep monitoring.",
+            "points": 3
+          },
+          {
+            "id": "c",
+            "text": "Move closer to your principal and increase visual scanning without radioing the team.",
+            "points": 2
+          },
+          {
+            "id": "d",
+            "text": "Confront the person directly to ask why they're following you.",
+            "points": 0
+          }
+        ]
+      },
+      {
+        "id": "CT3",
+        "category": "CT_SCEN",
+        "type": "mc",
+        "text": "Your principal insists on taking a route you assessed as higher-risk because it's faster and they're running late. What's the right response?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Take the faster route without any additional precautions.",
+            "points": 0
+          },
+          {
+            "id": "b",
+            "text": "Silently comply and take the faster route without voicing the risk.",
+            "points": 1
+          },
+          {
+            "id": "c",
+            "text": "State the specific risk concisely, offer the safer alternative with the time difference, and defer to the principal's decision while adjusting your posture if they insist.",
+            "points": 3
+          },
+          {
+            "id": "d",
+            "text": "Refuse to proceed until they agree to the safer route.",
+            "points": 1
+          }
+        ]
+      },
+      {
+        "id": "CT4",
+        "category": "CT_SCEN",
+        "type": "mc",
+        "text": "You receive a radio report of \"package moving\" from a teammate, but you don't recognize the voice and the phrasing is slightly off from your team's standard code. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Act on the report but stay alert for further confirmation.",
+            "points": 2
+          },
+          {
+            "id": "b",
+            "text": "Broadcast the exact same phrase back to confirm, over the same unsecured channel.",
+            "points": 0
+          },
+          {
+            "id": "c",
+            "text": "Ignore the report since it sounds unfamiliar.",
+            "points": 1
+          },
+          {
+            "id": "d",
+            "text": "Verify identity through a pre-established challenge/response or secondary channel before acting on the report.",
+            "points": 3
+          }
+        ]
+      },
+      {
+        "id": "CT5",
+        "category": "CT_SCEN",
+        "type": "mc",
+        "text": "Mid-shift, you realize you forgot to complete a pre-shift equipment check. What's the best move?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Complete the check immediately at the first safe opportunity and inform your supervisor of the gap.",
+            "points": 3
+          },
+          {
+            "id": "b",
+            "text": "Complete the check at the next scheduled break without telling anyone.",
+            "points": 2
+          },
+          {
+            "id": "c",
+            "text": "Skip it since the shift is already underway and nothing has gone wrong so far.",
+            "points": 0
+          },
+          {
+            "id": "d",
+            "text": "Wait until end of shift to check everything at once.",
+            "points": 1
+          }
+        ]
+      },
+      {
+        "id": "EQ1",
+        "category": "EQ_SCEN",
+        "type": "mc",
+        "text": "A principal snaps at you angrily over a scheduling mix-up that wasn't your fault. What's the best response in the moment?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Explain calmly that it wasn't your fault.",
+            "points": 1
+          },
+          {
+            "id": "b",
+            "text": "Stay calm, acknowledge their frustration without arguing fault, and focus on resolving the immediate issue.",
+            "points": 3
+          },
+          {
+            "id": "c",
+            "text": "Apologize even though it wasn't your fault, to de-escalate quickly.",
+            "points": 2
+          },
+          {
+            "id": "d",
+            "text": "Match their tone and defend yourself firmly.",
+            "points": 0
+          }
+        ]
+      },
+      {
+        "id": "EQ2",
+        "category": "EQ_SCEN",
+        "type": "mc",
+        "text": "You notice a teammate has been unusually quiet and short-tempered for the past two shifts. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Call them out in front of the team for their attitude.",
+            "points": 0
+          },
+          {
+            "id": "b",
+            "text": "Mention it to your supervisor so they can address it.",
+            "points": 2
+          },
+          {
+            "id": "c",
+            "text": "Check in privately, ask if everything's okay, without pressing if they don't want to talk.",
+            "points": 3
+          },
+          {
+            "id": "d",
+            "text": "Say nothing, assuming it will pass.",
+            "points": 1
+          }
+        ]
+      },
+      {
+        "id": "EQ3",
+        "category": "EQ_SCEN",
+        "type": "mc",
+        "text": "A member of the public becomes visibly upset and raises their voice near your principal, though they pose no physical threat. What's the best approach?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Firmly tell them to leave the area immediately.",
+            "points": 2
+          },
+          {
+            "id": "b",
+            "text": "Physically block them without speaking to de-escalate first.",
+            "points": 0
+          },
+          {
+            "id": "c",
+            "text": "Wait to see if they calm down on their own before doing anything.",
+            "points": 1
+          },
+          {
+            "id": "d",
+            "text": "Calmly and respectfully create distance and redirect them while remaining non-confrontational.",
+            "points": 3
+          }
+        ]
+      },
+      {
+        "id": "EQ4",
+        "category": "EQ_SCEN",
+        "type": "mc",
+        "text": "You made a mistake that a client noticed and pointed out in front of others. How do you respond?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Acknowledge it briefly and professionally, without over-apologizing or getting defensive, and correct it.",
+            "points": 3
+          },
+          {
+            "id": "b",
+            "text": "Apologize repeatedly and appear visibly embarrassed.",
+            "points": 2
+          },
+          {
+            "id": "c",
+            "text": "Say nothing and just fix it silently.",
+            "points": 1
+          },
+          {
+            "id": "d",
+            "text": "Explain why it wasn't really your fault.",
+            "points": 0
+          }
+        ]
+      },
+      {
+        "id": "EQ5",
+        "category": "EQ_SCEN",
+        "type": "mc",
+        "text": "A new team member seems nervous and is asking a lot of questions during a briefing. What's the best reaction?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Answer but suggest they save questions for after the briefing.",
+            "points": 2
+          },
+          {
+            "id": "b",
+            "text": "Answer patiently and encourage the questions \u2014 better they ask now than assume later.",
+            "points": 3
+          },
+          {
+            "id": "c",
+            "text": "Give short answers to move the briefing along faster.",
+            "points": 1
+          },
+          {
+            "id": "d",
+            "text": "Show visible irritation at the questions.",
+            "points": 0
+          }
+        ]
+      }
+    ]
+  },
+  "estate": {
+    "name": "Estate Security Scenarios",
+    "description": "Five situational judgment scenarios specific to residential/estate protection.",
+    "items": [
+      {
+        "id": "ES-S1",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "A delivery arrives at the estate gate that wasn't on today's expected list. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Wave them through since deliveries happen often.",
+            "points": 0
+          },
+          {
+            "id": "b",
+            "text": "Ask the driver who sent them and let them in if the answer sounds reasonable.",
+            "points": 1
+          },
+          {
+            "id": "c",
+            "text": "Verify the delivery against the household's scheduling system before allowing entry, and hold the driver at the gate until confirmed.",
+            "points": 3
+          },
+          {
+            "id": "d",
+            "text": "Allow entry but escort the driver directly and closely monitor them.",
+            "points": 2
+          }
+        ]
+      },
+      {
+        "id": "ES-S2",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "You notice a perimeter camera has been offline for six hours and no one reported it. What's your first move?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Report it and wait for maintenance to fix it before doing anything else.",
+            "points": 2
+          },
+          {
+            "id": "b",
+            "text": "Assume it's a minor glitch since nothing else seems unusual.",
+            "points": 0
+          },
+          {
+            "id": "c",
+            "text": "Note it in the log for the next shift to review.",
+            "points": 1
+          },
+          {
+            "id": "d",
+            "text": "Report it immediately, physically inspect that section of perimeter, and increase patrol frequency there until it's restored.",
+            "points": 3
+          }
+        ]
+      },
+      {
+        "id": "ES-S3",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "A household staff member you don't recognize asks you to let them into a normally restricted wing, saying the principal approved it verbally. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Politely decline until you can verify the approval directly with the principal or through the standard access process.",
+            "points": 3
+          },
+          {
+            "id": "b",
+            "text": "Let them in without question since they seem to know the property.",
+            "points": 0
+          },
+          {
+            "id": "c",
+            "text": "Let them in and mention it to your supervisor afterward.",
+            "points": 1
+          },
+          {
+            "id": "d",
+            "text": "Let them in but stay with them the entire time.",
+            "points": 2
+          }
+        ]
+      },
+      {
+        "id": "ES-S4",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "A landscaping crew is scheduled to work near a ground-floor window with a clear sightline into the principal's office. What's the right call?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ask the principal to close the blinds instead of adjusting your posture.",
+            "points": 2
+          },
+          {
+            "id": "b",
+            "text": "Confirm the crew's identity and schedule in advance, and station a visual on that area while they're working.",
+            "points": 3
+          },
+          {
+            "id": "c",
+            "text": "Let them work as scheduled without extra attention.",
+            "points": 0
+          },
+          {
+            "id": "d",
+            "text": "Cancel the landscaping without discussing it with anyone.",
+            "points": 1
+          }
+        ]
+      },
+      {
+        "id": "ES-S5",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "You're doing a nightly perimeter check and find a side gate unlocked that should always be secured. No signs of forced entry. What's your next step?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Leave it, assuming it was intentional since there's no damage.",
+            "points": 0
+          },
+          {
+            "id": "b",
+            "text": "Assume someone forgot and lock it without further follow-up.",
+            "points": 1
+          },
+          {
+            "id": "c",
+            "text": "Secure the gate immediately, then investigate who had access and when, and report the finding.",
+            "points": 3
+          },
+          {
+            "id": "d",
+            "text": "Secure the gate and mention it at shift change.",
+            "points": 2
+          }
+        ]
+      }
+    ]
+  },
+  "event": {
+    "name": "Event Security Scenarios",
+    "description": "Five situational judgment scenarios specific to venue and crowd-based protection.",
+    "items": [
+      {
+        "id": "EV-S1",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "During a red-carpet arrival, a photographer pushes past the rope line to get closer to your principal. What's the right response?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Firmly grab their arm and pull them back.",
+            "points": 1
+          },
+          {
+            "id": "b",
+            "text": "Ignore it since photographers often push boundaries.",
+            "points": 0
+          },
+          {
+            "id": "c",
+            "text": "Verbally warn them but don't physically reposition.",
+            "points": 2
+          },
+          {
+            "id": "d",
+            "text": "Calmly and firmly reposition between the photographer and principal, redirecting them back behind the line without escalating physically.",
+            "points": 3
+          }
+        ]
+      },
+      {
+        "id": "EV-S2",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "You're assigned to a single exit point at a crowded event and it becomes blocked by a growing crowd. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Immediately communicate the blockage to the team and identify or prepare an alternate egress route for the principal.",
+            "points": 3
+          },
+          {
+            "id": "b",
+            "text": "Wait to see if the crowd thins out naturally.",
+            "points": 1
+          },
+          {
+            "id": "c",
+            "text": "Do nothing since it's not your exit to manage.",
+            "points": 0
+          },
+          {
+            "id": "d",
+            "text": "Try to clear the crowd yourself before reporting it.",
+            "points": 2
+          }
+        ]
+      },
+      {
+        "id": "EV-S3",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "A guest with an all-access credential is acting erratically near the stage area. What's the best approach?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Publicly confront them in front of other guests.",
+            "points": 1
+          },
+          {
+            "id": "b",
+            "text": "Discreetly monitor and reposition closer, alert the team, without confronting them based on credential status alone.",
+            "points": 3
+          },
+          {
+            "id": "c",
+            "text": "Immediately revoke their credential and remove them.",
+            "points": 2
+          },
+          {
+            "id": "d",
+            "text": "Ignore it since they have proper credentials.",
+            "points": 0
+          }
+        ]
+      },
+      {
+        "id": "EV-S4",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "Weather turns severe mid-event and the venue hasn't announced a plan. What's your move?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Wait for venue staff to make an announcement before acting.",
+            "points": 1
+          },
+          {
+            "id": "b",
+            "text": "Continue as normal since the event organizers haven't said anything.",
+            "points": 0
+          },
+          {
+            "id": "c",
+            "text": "Proactively check with venue management for their severe weather protocol and prepare a principal evacuation route regardless of their answer.",
+            "points": 3
+          },
+          {
+            "id": "d",
+            "text": "Suggest to your principal that they might want to leave.",
+            "points": 2
+          }
+        ]
+      },
+      {
+        "id": "EV-S5",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "You're one of three agents covering an event and one agent doesn't check in at the scheduled radio time. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Assume they're just busy and continue your post.",
+            "points": 2
+          },
+          {
+            "id": "b",
+            "text": "Wait until the next scheduled check-in to see if they respond then.",
+            "points": 1
+          },
+          {
+            "id": "c",
+            "text": "Leave your post to go look for them without notifying anyone.",
+            "points": 0
+          },
+          {
+            "id": "d",
+            "text": "Attempt to reach them immediately through multiple channels and escalate to the team lead if there's no response within a short window.",
+            "points": 3
+          }
+        ]
+      }
+    ]
+  },
+  "driving": {
+    "name": "Driving Security Scenarios",
+    "description": "Five situational judgment scenarios specific to transport and motorcade protection.",
+    "items": [
+      {
+        "id": "DR-S1",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "You're driving your principal and notice the same vehicle has been behind you through three consecutive turns that don't match a direct route. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Execute a pre-planned surveillance detection route to confirm before taking evasive action, and notify your team.",
+            "points": 3
+          },
+          {
+            "id": "b",
+            "text": "Speed up dramatically to lose them without informing anyone.",
+            "points": 0
+          },
+          {
+            "id": "c",
+            "text": "Keep driving the planned route and hope it's coincidental.",
+            "points": 2
+          },
+          {
+            "id": "d",
+            "text": "Immediately take evasive driving maneuvers without confirming first.",
+            "points": 1
+          }
+        ]
+      },
+      {
+        "id": "DR-S2",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "Your planned route is suddenly closed due to construction with no warning. What's your best move?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Stop the vehicle to figure out a new route.",
+            "points": 1
+          },
+          {
+            "id": "b",
+            "text": "Switch to a pre-planned alternate route immediately and notify the team of the change.",
+            "points": 3
+          },
+          {
+            "id": "c",
+            "text": "Improvise a new route on the spot without any prior planning.",
+            "points": 2
+          },
+          {
+            "id": "d",
+            "text": "Continue trying to find a way through the closure.",
+            "points": 0
+          }
+        ]
+      },
+      {
+        "id": "DR-S3",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "While stopped at a red light, a pedestrian approaches the vehicle and knocks on the window. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Roll down the window slightly to ask what they want.",
+            "points": 1
+          },
+          {
+            "id": "b",
+            "text": "Get out of the vehicle to address them directly.",
+            "points": 0
+          },
+          {
+            "id": "c",
+            "text": "Stay alert, keep doors locked, assess the situation, and be prepared to move if the light changes or things escalate.",
+            "points": 3
+          },
+          {
+            "id": "d",
+            "text": "Ignore them completely and stare forward.",
+            "points": 2
+          }
+        ]
+      },
+      {
+        "id": "DR-S4",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "You arrive at the destination and the expected parking/drop-off spot is occupied by another vehicle. What's your move?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Drop the principal in the middle of the street.",
+            "points": 0
+          },
+          {
+            "id": "b",
+            "text": "Circle the block until the spot opens up.",
+            "points": 1
+          },
+          {
+            "id": "c",
+            "text": "Park illegally nearby and hope for the best.",
+            "points": 2
+          },
+          {
+            "id": "d",
+            "text": "Use your pre-planned secondary drop-off point rather than improvising on the spot.",
+            "points": 3
+          }
+        ]
+      },
+      {
+        "id": "DR-S5",
+        "category": "SCENARIO",
+        "type": "mc",
+        "text": "Mid-route, your principal asks you to make an unscheduled stop at a location you haven't assessed. What do you do?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Acknowledge the request, quickly assess the location's basic safety as you approach, and adjust your positioning accordingly.",
+            "points": 3
+          },
+          {
+            "id": "b",
+            "text": "Refuse the stop outright without explanation.",
+            "points": 0
+          },
+          {
+            "id": "c",
+            "text": "Comply without any additional assessment.",
+            "points": 1
+          },
+          {
+            "id": "d",
+            "text": "Try to talk the principal out of the stop.",
+            "points": 2
+          }
+        ]
+      }
+    ]
+  }
+}

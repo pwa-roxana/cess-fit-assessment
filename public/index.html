@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CESS Applicant Assessment — Pacific West Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div>
+      <div class="brand">Pacific West Academy · CESS Program</div>
+      <h1>Applicant Assessment</h1>
+    </div>
+  </div>
+
+  <div class="notice">
+    <strong>Internal screening support tool — not a validated clinical instrument.</strong>
+    These assessments are used alongside a behavioral interview and situational judgment review; they are
+    one input among several, not a stand-alone admission decision.
+  </div>
+
+  <div class="card" id="startCard">
+    <label class="field-label">Applicant name or ID</label>
+    <input type="text" id="applicantName" placeholder="e.g. Jordan Mercer or Applicant #114">
+
+    <label class="field-label" style="margin-top:4px;">Which assessment?</label>
+    <select id="testSelect"></select>
+    <p class="muted" id="testDescription" style="margin-top:2px;"></p>
+
+    <div class="error-text" id="startError"></div>
+    <button class="btn" onclick="beginAssessment()">Begin Assessment</button>
+    <p class="muted" style="margin-top:16px;" id="lengthNote"></p>
+  </div>
+
+  <div class="card hidden" id="quizCard">
+    <div class="progress-label" id="progressLabel">Page 1</div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div id="itemsContainer"></div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" id="prevBtn" onclick="changePage(-1)">Back</button>
+      <button class="btn" id="nextBtn" onclick="changePage(1)">Next</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="resultCard">
+    <div class="center" id="resultStampWrap"></div>
+    <div class="nav-row" style="justify-content:flex-end;">
+      <button class="btn btn-ghost" onclick="resetTool()">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SCALE = [
+  {v:1, label:'Strongly Disagree'},
+  {v:2, label:'Disagree'},
+  {v:3, label:'Neutral'},
+  {v:4, label:'Agree'},
+  {v:5, label:'Strongly Agree'},
+];
+const ITEMS_PER_PAGE_LIKERT = 5;
+const ITEMS_PER_PAGE_MC = 2;
+const ITEMS_PER_PAGE_FC = 1;
+
+let TESTS = [];
+let ITEMS = [];
+let PAGES = [];        // array of arrays of items, pre-chunked
+let currentPage = 0;
+let responses = {};
+let applicantId = '';
+let selectedTestId = '';
+
+async function loadTests() {
+  const res = await fetch('/api/tests');
+  TESTS = await res.json();
+  const sel = document.getElementById('testSelect');
+  sel.innerHTML = TESTS.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+  sel.addEventListener('change', updateTestDescription);
+  updateTestDescription();
+}
+loadTests();
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function updateTestDescription() {
+  const sel = document.getElementById('testSelect');
+  const t = TESTS.find(x => x.id === sel.value);
+  if (!t) return;
+  document.getElementById('testDescription').textContent = t.description;
+  document.getElementById('lengthNote').textContent =
+    `${t.itemCount} item${t.itemCount === 1 ? '' : 's'}, about ${Math.max(3, Math.round(t.itemCount * 0.4))}–${Math.round(t.itemCount * 0.6)} minutes.`;
+}
+
+function chunkIntoPages(items) {
+  const pages = [];
+  let i = 0;
+  while (i < items.length) {
+    const type = items[i].type;
+    const size = type === 'likert' ? ITEMS_PER_PAGE_LIKERT : type === 'mc' ? ITEMS_PER_PAGE_MC : ITEMS_PER_PAGE_FC;
+    // Don't mix types within a page — stop the chunk early if the type changes.
+    let end = i;
+    while (end < items.length && items[end].type === items[i].type && end - i < size) end++;
+    pages.push(items.slice(i, end));
+    i = end;
+  }
+  return pages;
+}
+
+async function beginAssessment() {
+  const nameField = document.getElementById('applicantName');
+  applicantId = nameField.value.trim();
+  selectedTestId = document.getElementById('testSelect').value;
+  const errEl = document.getElementById('startError');
+  if (!applicantId) { errEl.textContent = 'Please enter a name or ID.'; nameField.focus(); return; }
+  errEl.textContent = '';
+
+  try {
+    const checkRes = await fetch(`/api/check-applicant?name=${encodeURIComponent(applicantId)}&test=${encodeURIComponent(selectedTestId)}`);
+    const checkData = await checkRes.json();
+    if (checkData.alreadySubmitted) {
+      errEl.textContent = 'This assessment has already been submitted under this name or ID. If this is a mistake, please contact staff.';
+      return;
+    }
+  } catch (e) { /* server still enforces this on submit */ }
+
+  const res = await fetch(`/api/items?test=${encodeURIComponent(selectedTestId)}`);
+  const data = await res.json();
+  ITEMS = data.items;
+  // Shuffle each multiple-choice item's option order once per session, so the
+  // "correct" letter position can't be memorized or shared between applicants.
+  ITEMS.forEach(item => {
+    if ((item.type === 'mc' || item.type === 'forced_choice') && item.options) {
+      item.options = shuffle(item.options);
+    }
+  });
+  PAGES = chunkIntoPages(ITEMS);
+
+  document.getElementById('startCard').classList.add('hidden');
+  document.getElementById('quizCard').classList.remove('hidden');
+  currentPage = 0;
+  responses = {};
+  renderPage();
+}
+
+function renderPage() {
+  const container = document.getElementById('itemsContainer');
+  container.innerHTML = '';
+  const pageItems = PAGES[currentPage];
+  const globalStartIndex = PAGES.slice(0, currentPage).reduce((n, p) => n + p.length, 0);
+
+  pageItems.forEach((item, i) => {
+    const globalIndex = globalStartIndex + i + 1;
+    const div = document.createElement('div');
+    div.className = 'item';
+
+    if (item.type === 'likert') {
+      const scaleHtml = SCALE.map(opt => `
+        <div class="scale-opt">
+          <input type="radio" name="${item.id}" id="${item.id}_${opt.v}" value="${opt.v}"
+            ${responses[item.id] === opt.v ? 'checked' : ''}
+            onchange="setResponse('${item.id}', ${opt.v})">
+          <label for="${item.id}_${opt.v}"><span class="dot"></span></label>
+        </div>`).join('');
+      div.innerHTML = `
+        <div class="item-num">Item ${String(globalIndex).padStart(2,'0')} / ${ITEMS.length}</div>
+        <div class="item-text">${item.text}</div>
+        <div class="scale">${scaleHtml}</div>
+        <div class="scale-caps"><span>Strongly Disagree</span><span>Strongly Agree</span></div>
+      `;
+    } else if (item.type === 'mc') {
+      const optsHtml = item.options.map(opt => `
+        <label class="mc-opt ${responses[item.id] === opt.id ? 'selected' : ''}">
+          <input type="radio" name="${item.id}" value="${opt.id}"
+            ${responses[item.id] === opt.id ? 'checked' : ''}
+            onchange="setResponse('${item.id}', '${opt.id}'); renderPage();">
+          <span>${opt.text}</span>
+        </label>`).join('');
+      div.innerHTML = `
+        <div class="item-num">Scenario ${String(globalIndex).padStart(2,'0')} / ${ITEMS.length}</div>
+        <div class="item-text">${item.text}</div>
+        <div class="mc-group">${optsHtml}</div>
+      `;
+    } else if (item.type === 'forced_choice') {
+      const current = responses[item.id] || {};
+      const rowsHtml = item.options.map(opt => {
+        const isMost = current.most === opt.id;
+        const isLeast = current.least === opt.id;
+        return `
+        <div class="fc-row ${isMost ? 'fc-most' : ''} ${isLeast ? 'fc-least' : ''}">
+          <span class="fc-text">${opt.text}</span>
+          <div class="fc-btns">
+            <button type="button" class="fc-btn fc-btn-most ${isMost ? 'active' : ''}"
+              onclick="setForcedChoice('${item.id}', 'most', '${opt.id}')">Most like me</button>
+            <button type="button" class="fc-btn fc-btn-least ${isLeast ? 'active' : ''}"
+              onclick="setForcedChoice('${item.id}', 'least', '${opt.id}')">Least like me</button>
+          </div>
+        </div>`;
+      }).join('');
+      div.innerHTML = `
+        <div class="item-num">Question ${String(globalIndex).padStart(2,'0')} / ${ITEMS.length}</div>
+        <div class="item-text">${item.text}</div>
+        <div class="fc-group">${rowsHtml}</div>
+      `;
+    }
+    container.appendChild(div);
+  });
+
+  document.getElementById('progressLabel').textContent = `Page ${currentPage + 1} of ${PAGES.length}`;
+  document.getElementById('progressFill').style.width = `${((currentPage + 1) / PAGES.length) * 100}%`;
+  document.getElementById('prevBtn').disabled = currentPage === 0;
+  document.getElementById('nextBtn').textContent = currentPage === PAGES.length - 1 ? 'Submit' : 'Next';
+}
+
+function setResponse(id, val) { responses[id] = val; }
+
+function setForcedChoice(itemId, role, optionId) {
+  const current = responses[itemId] || {};
+  if (role === 'most') {
+    if (current.least === optionId) current.least = undefined; // can't be both
+    current.most = optionId;
+  } else {
+    if (current.most === optionId) current.most = undefined;
+    current.least = optionId;
+  }
+  responses[itemId] = current;
+  renderPage();
+}
+
+function pageComplete() {
+  return PAGES[currentPage].every(item => {
+    if (item.type === 'forced_choice') {
+      const r = responses[item.id];
+      return r && r.most && r.least && r.most !== r.least;
+    }
+    return responses[item.id] !== undefined;
+  });
+}
+
+function changePage(dir) {
+  if (dir === 1) {
+    if (!pageComplete()) { alert('Please respond to every item on this page before continuing.'); return; }
+    if (currentPage === PAGES.length - 1) { finishAssessment(); return; }
+    currentPage++;
+  } else {
+    currentPage = Math.max(0, currentPage - 1);
+  }
+  renderPage();
+}
+
+async function finishAssessment() {
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('nextBtn').textContent = 'Submitting…';
+  try {
+    const res = await fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ applicantId, testId: selectedTestId, responses }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      alert(data.error || 'Something went wrong submitting the assessment.');
+      document.getElementById('nextBtn').disabled = false;
+      renderPage();
+      return;
+    }
+    document.getElementById('quizCard').classList.add('hidden');
+    document.getElementById('resultCard').classList.remove('hidden');
+    renderConfirmation();
+  } catch (e) {
+    alert('Could not reach the server. Please try again.');
+    document.getElementById('nextBtn').disabled = false;
+    renderPage();
+  }
+}
+
+function renderConfirmation() {
+  document.getElementById('resultStampWrap').innerHTML = `
+    <div class="stamp strong">Submitted</div>
+    <p class="muted" style="margin-top:14px;">
+      Thanks — your responses have been recorded. You may close this window.
+    </p>
+  `;
+}
+
+function resetTool() {
+  applicantId = '';
+  responses = {};
+  currentPage = 0;
+  document.getElementById('applicantName').value = '';
+  document.getElementById('nextBtn').disabled = false;
+  document.getElementById('resultCard').classList.add('hidden');
+  document.getElementById('startCard').classList.remove('hidden');
+}
+</script>
+</body>
+</html>

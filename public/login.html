@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Login — CESS Fit Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="wrap narrow">
+  <div class="masthead" style="border:none; justify-content:center; text-align:center; display:block;">
+    <div class="brand">Pacific West Academy · CESS Program</div>
+    <h1>Staff Login</h1>
+  </div>
+  <div class="card">
+    <label class="field-label">Staff password</label>
+    <input type="password" id="password" placeholder="••••••••" autofocus>
+    <div class="error-text" id="errorText"></div>
+    <button class="btn" style="width:100%;" onclick="doLogin()">Log In</button>
+  </div>
+</div>
+<script>
+async function doLogin() {
+  const password = document.getElementById('password').value;
+  const errEl = document.getElementById('errorText');
+  errEl.textContent = '';
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      errEl.textContent = data.error || 'Login failed.';
+      return;
+    }
+    window.location.href = '/results.html';
+  } catch (e) {
+    errEl.textContent = 'Could not reach the server. Try again.';
+  }
+}
+document.getElementById('password').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') doLogin();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Results — CESS Fit Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div>
+      <div class="brand">Pacific West Academy · CESS Program</div>
+      <h1>Applicant Fit Results</h1>
+    </div>
+    <a href="#" class="logout" onclick="doLogout()">Log Out</a>
+  </div>
+
+  <div class="card">
+    <details class="score-guide">
+      <summary>How to read these scores</summary>
+      <div class="score-guide-body">
+        <p class="muted"><strong>General EP Fit Assessment</strong> reports two constructs — Critical Thinking and Emotional Intelligence — each measured two independent ways:</p>
+        <ul class="score-guide-list">
+          <li><strong>Trait</strong> (e.g. CT-Trait, EQ-Trait) — from a set of forced-choice comparison questions. The applicant is shown four statements about themselves and picks which is most and least like them. This measures how they see their own tendencies.</li>
+          <li><strong>Scenario</strong> (e.g. CT-Scenario, EQ-Scenario) — from realistic "what would you do" situations specific to executive protection work. This measures applied judgment in the moment, not self-description.</li>
+          <li><strong>Blended</strong> (Crit.Think. / EQ) — the Trait and Scenario scores for that construct, averaged. This is the headline number.</li>
+        </ul>
+        <p class="muted"><strong>A large gap between an applicant's Trait and Scenario score on the same construct is worth asking about in interview</strong> — rows with a gap of 30+ points are flagged automatically below. It usually means one of two things: they can identify the right answer in a clear scenario but don't see that quality as central to who they are, or the reverse. Either is worth a direct follow-up question, not a red flag on its own.</p>
+        <p class="muted"><strong>Estate / Event / Driving Security Scenarios</strong> report a single Judgment Score — the percentage of points earned across that track's 5 role-specific situational questions.</p>
+        <p class="muted"><strong>Band meaning:</strong> Strong Signal (70–100) reflects consistently sound judgment across the measured items. Mixed Signal (45–69) is where interview probing matters most. Limited Signal (0–44) — prioritize related interview questions for that applicant.</p>
+        <p class="muted">All of this is a decision-support input, not a pass/fail cutoff — use it alongside the structured interview and situational judgment scoring.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="toolbar">
+      <div class="muted" id="resultsCount">Loading submissions…</div>
+      <a class="btn btn-ghost" href="/api/results/csv" style="text-decoration:none;">Export CSV</a>
+    </div>
+    <div id="resultsTableWrap"></div>
+  </div>
+
+  <div class="modal-overlay hidden" id="reportOverlay" onclick="if(event.target===this) closeReport()">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <div class="brand" id="reportSubtitle"></div>
+          <h2 id="reportTitle"></h2>
+        </div>
+        <button class="btn btn-ghost" onclick="closeReport()">Close</button>
+      </div>
+      <div id="reportBody" class="report-body"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="toolbar">
+      <div>
+        <div class="field-label" style="margin-bottom:2px;">Backups</div>
+        <div class="muted">A snapshot of the full database is taken automatically once a day. You can also grab one on demand.</div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-ghost" onclick="runBackupNow()">Snapshot Now</button>
+        <a class="btn btn-ghost" href="/api/backup/download" style="text-decoration:none;">Download Current DB</a>
+      </div>
+    </div>
+    <div id="backupsTableWrap"></div>
+  </div>
+</div>
+
+<script>
+function bandClass(band) {
+  if (band === 'Strong Signal') return 'strong';
+  if (band === 'Mixed Signal') return 'mixed';
+  return 'limited';
+}
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+async function checkSessionThenLoad() {
+  const sres = await fetch('/api/session');
+  const sdata = await sres.json();
+  if (!sdata.authenticated) {
+    window.location.href = '/login.html';
+    return;
+  }
+  loadResults();
+}
+
+async function loadResults() {
+  const wrap = document.getElementById('resultsTableWrap');
+  const countEl = document.getElementById('resultsCount');
+  const res = await fetch('/api/results');
+  if (res.status === 401) {
+    window.location.href = '/login.html';
+    return;
+  }
+  const records = await res.json();
+
+  if (!records.length) {
+    countEl.textContent = 'No submissions yet.';
+    wrap.innerHTML = '<div class="empty-state">No completed assessments yet. Results will appear here as applicants complete the tool.</div>';
+    return;
+  }
+
+  countEl.textContent = `${records.length} submission${records.length === 1 ? '' : 's'} recorded`;
+  window._records = records;
+  const scoreMeta = {
+    CT: { label: 'Crit.Think.', title: 'Critical Thinking (blended) — average of CT-Trait and CT-Scenario.' },
+    EQ: { label: 'EQ', title: 'Emotional Intelligence (blended) — average of EQ-Trait and EQ-Scenario.' },
+    CT_Trait: { label: 'CT-Trait', title: 'Critical Thinking, self-perceived — from the forced-choice trait comparison questions.' },
+    CT_Scenario: { label: 'CT-Scenario', title: 'Critical Thinking, applied — from the "what would you do" situational questions.' },
+    EQ_Trait: { label: 'EQ-Trait', title: 'Emotional Intelligence, self-perceived — from the forced-choice trait comparison questions.' },
+    EQ_Scenario: { label: 'EQ-Scenario', title: 'Emotional Intelligence, applied — from the "what would you do" situational questions.' },
+    SCENARIO: { label: 'Scenario', title: 'Judgment Score — percentage of points earned across this track\'s 5 situational questions.' },
+  };
+  const rows = records.map((r, idx) => {
+    const cls = bandClass(r.band);
+    const dt = new Date(r.date);
+    const scoresHtml = Object.entries(r.scores)
+      .map(([k, v]) => {
+        const meta = scoreMeta[k] || { label: k, title: '' };
+        return `<span title="${escapeHtml(meta.title)}">${meta.label}: ${v}</span>`;
+      })
+      .join(' <span class="score-sep">·</span> ');
+
+    const gapFlags = [];
+    if (r.scores.CT_Trait !== undefined && r.scores.CT_Scenario !== undefined) {
+      if (Math.abs(r.scores.CT_Trait - r.scores.CT_Scenario) >= 30) gapFlags.push('CT');
+    }
+    if (r.scores.EQ_Trait !== undefined && r.scores.EQ_Scenario !== undefined) {
+      if (Math.abs(r.scores.EQ_Trait - r.scores.EQ_Scenario) >= 30) gapFlags.push('EQ');
+    }
+    const gapHtml = gapFlags.length
+      ? `<span class="flag" title="Trait and Scenario scores diverge by 30+ points for ${gapFlags.join(' and ')} — see report for detail.">⚠ ${gapFlags.join('/')} gap</span>`
+      : '';
+
+    return `<tr>
+      <td>${escapeHtml(r.applicant)}</td>
+      <td>${escapeHtml(r.testName)}</td>
+      <td>${dt.toLocaleDateString()}</td>
+      <td><span class="badge ${cls}" title="${escapeHtml(r.headlineLabel)}">${r.headlineScore} — ${r.band}</span></td>
+      <td>${gapHtml}</td>
+      <td>${r.attentionPassed === false ? '<span class="flag" title="This applicant may have rushed or skipped the attention-check item.">⚠ check</span>' : ''}</td>
+      <td><button class="btn btn-ghost report-btn" onclick="openReport(${idx})">View Report</button></td>
+    </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div style="overflow-x:auto;">
+    <table>
+      <thead><tr>
+        <th>Applicant</th><th>Test</th><th>Date</th><th>Headline</th><th></th><th></th><th></th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    </div>
+  `;
+}
+
+// ---- Written report generation ----
+function bandPhrase(band) {
+  if (band === 'Strong Signal') return 'a consistently sound pattern across the items measured';
+  if (band === 'Mixed Signal') return 'a mixed pattern — some areas score well, others are worth a closer look in interview';
+  return 'a pattern with real gaps worth exploring directly before moving forward';
+}
+
+function constructParagraph(name, blended, trait, scenario, followUpLow, followUpGapHigh, followUpGapLow) {
+  const parts = [];
+  parts.push(`<strong>${name}</strong> scored ${blended}/100.`);
+  if (trait === undefined || scenario === undefined) {
+    return parts.join(' ');
+  }
+  const gap = trait - scenario; // positive = trait higher, negative = scenario higher
+  if (Math.abs(gap) < 20) {
+    if (blended >= 70) {
+      parts.push(`Both the self-comparison measure (Trait: ${trait}) and the realistic-scenario measure (Scenario: ${scenario}) agree here — this reads as a genuine strength, not just a favorable self-report.`);
+    } else {
+      parts.push(`Both the self-comparison measure (Trait: ${trait}) and the realistic-scenario measure (Scenario: ${scenario}) agree — this is an area worth probing further in interview. ${followUpLow}`);
+    }
+  } else if (gap <= -20) {
+    // scenario notably higher than trait
+    parts.push(`In realistic scenarios, this applicant consistently chose sound responses (Scenario: ${scenario}). But on the self-comparison items, they didn't rate this quality as strongly characteristic of themselves (Trait: ${trait}). This kind of gap often means someone can recognize the right call when it's laid out for them, but it may not be their default instinct under real ambiguity. ${followUpGapHigh}`);
+  } else {
+    // trait notably higher than scenario
+    parts.push(`This applicant rates themselves highly on this quality in the abstract (Trait: ${trait}), but their choices in the realistic scenarios didn't consistently reflect that (Scenario: ${scenario}). Worth probing whether this is a self-awareness gap or simply unfamiliarity with EP-specific judgment calls. ${followUpGapLow}`);
+  }
+  return parts.join(' ');
+}
+
+function buildReport(r) {
+  const paragraphs = [];
+
+  if (r.testId === 'general') {
+    paragraphs.push(`This applicant's combined Critical Thinking &amp; EQ Indicator is <strong>${r.headlineScore}/100 (${r.band})</strong>. This reflects ${bandPhrase(r.band)}.`);
+
+    paragraphs.push(constructParagraph(
+      'Critical Thinking', r.scores.CT, r.scores.CT_Trait, r.scores.CT_Scenario,
+      'Ask about verification habits and prioritization under pressure — see Section 3 of the interview guide.',
+      `Worth asking directly: <em>"Walk me through a time you slowed down to verify something before acting, even though it wasn't required of you."</em>`,
+      `Try one of the Critical Thinking scenario questions from the interview guide and see if their live reasoning matches this self-rating.`
+    ));
+
+    paragraphs.push(constructParagraph(
+      'Emotional Intelligence', r.scores.EQ, r.scores.EQ_Trait, r.scores.EQ_Scenario,
+      'Ask about composure under criticism and reading others\' emotional state — see Section 3 of the interview guide.',
+      `Worth asking directly: <em>"Tell me about the last time someone was difficult with you. What did you actually do, in the moment?"</em>`,
+      `Try one of the Emotional Intelligence scenario questions from the interview guide and see if their live reasoning matches this self-rating.`
+    ));
+
+    if (r.attentionPassed === false) {
+      paragraphs.push(`<strong>⚠ Attention-check item was missed.</strong> This applicant may have rushed through the assessment or wasn't reading each item carefully. Treat every score above with extra caution, and consider offering a retake before relying on this data.`);
+    }
+  } else {
+    paragraphs.push(`This applicant scored <strong>${r.headlineScore}/100 (${r.band})</strong> on the ${escapeHtml(r.testName)}. This reflects ${bandPhrase(r.band)}, based on their choices across 5 role-specific situational questions.`);
+    if (r.band === 'Limited Signal') {
+      paragraphs.push(`Consider walking through two or three of these scenarios directly in interview to understand their reasoning — a low score here doesn't tell you *why* they chose what they chose, only that it's worth asking.`);
+    }
+  }
+
+  paragraphs.push(`<span class="muted" style="font-size:12px;">This is a decision-support input, not a hiring decision — use it alongside the structured behavioral interview and situational judgment scoring, not in place of them.</span>`);
+
+  return paragraphs.map(p => `<p>${p}</p>`).join('');
+}
+
+function openReport(idx) {
+  const r = window._records[idx];
+  document.getElementById('reportSubtitle').textContent = `${r.testName} · ${new Date(r.date).toLocaleDateString()}`;
+  document.getElementById('reportTitle').textContent = r.applicant;
+  document.getElementById('reportBody').innerHTML = buildReport(r);
+  document.getElementById('reportOverlay').classList.remove('hidden');
+}
+
+function closeReport() {
+  document.getElementById('reportOverlay').classList.add('hidden');
+}
+
+async function doLogout() {
+  await fetch('/api/logout', { method: 'POST' });
+  window.location.href = '/login.html';
+}
+
+function formatBytes(n) {
+  if (n < 1024) return `${n} B`;
+  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
+  return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+async function loadBackups() {
+  const wrap = document.getElementById('backupsTableWrap');
+  const res = await fetch('/api/backups');
+  if (res.status === 401) { window.location.href = '/login.html'; return; }
+  const backups = await res.json();
+
+  if (!backups.length) {
+    wrap.innerHTML = '<div class="empty-state">No snapshots yet — one is taken automatically shortly after the server starts.</div>';
+    return;
+  }
+
+  const rows = backups.map((b) => {
+    const dt = new Date(b.created);
+    return `<tr>
+      <td>${dt.toLocaleString()}</td>
+      <td>${formatBytes(b.sizeBytes)}</td>
+      <td><a class="btn btn-ghost" style="padding:6px 12px; text-decoration:none;" href="/api/backups/${encodeURIComponent(b.filename)}">Download</a></td>
+    </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div style="overflow-x:auto;">
+    <table>
+      <thead><tr><th>Snapshot taken</th><th>Size</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    </div>
+  `;
+}
+
+async function runBackupNow() {
+  const res = await fetch('/api/backups/run', { method: 'POST' });
+  if (res.status === 401) { window.location.href = '/login.html'; return; }
+  if (!res.ok) { alert('Could not create a snapshot right now.'); return; }
+  loadBackups();
+}
+
+checkSessionThenLoad().then(() => { if (document.getElementById('backupsTableWrap')) loadBackups(); });
+</script>
+</body>
+</html>
